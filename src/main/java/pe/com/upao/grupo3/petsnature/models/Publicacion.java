@@ -1,11 +1,7 @@
-package pe.com.upao.grupo3.Petsnature.models;
+package pe.com.upao.grupo3.petsnature.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.Time;
 import java.util.Date;

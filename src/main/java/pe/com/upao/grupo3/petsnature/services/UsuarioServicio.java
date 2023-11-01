@@ -1,13 +1,13 @@
-package pe.com.upao.grupo3.Petsnature.services;
+package pe.com.upao.grupo3.petsnature.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pe.com.upao.grupo3.Petsnature.Exceptions.ContrasenaIncorrectaException;
-import pe.com.upao.grupo3.Petsnature.Exceptions.ContrasenaNoValida;
-import pe.com.upao.grupo3.Petsnature.Exceptions.UsuarioNoExisteException;
-import pe.com.upao.grupo3.Petsnature.Exceptions.UsuarioYaExisteException;
-import pe.com.upao.grupo3.Petsnature.models.Usuario;
-import pe.com.upao.grupo3.Petsnature.repositories.UsuarioRepository;
+import pe.com.upao.grupo3.petsnature.exceptions.ContrasenaIncorrectaException;
+import pe.com.upao.grupo3.petsnature.exceptions.ContrasenaNoValidaException;
+import pe.com.upao.grupo3.petsnature.exceptions.UsuarioNoExisteException;
+import pe.com.upao.grupo3.petsnature.exceptions.UsuarioYaExisteException;
+import pe.com.upao.grupo3.petsnature.models.Usuario;
+import pe.com.upao.grupo3.petsnature.repositories.UsuarioRepository;
 
 import java.util.Optional;
 
@@ -27,7 +27,7 @@ public class UsuarioServicio {
 
 
         if(!validarContrasena(usuario.getContrasena())){
-            throw new ContrasenaNoValida("La contraseña no cumple con los requisitos minimos");
+            throw new ContrasenaNoValidaException("La contraseña no cumple con los requisitos minimos");
         }
 
         return usuarioRepository.save(usuario);

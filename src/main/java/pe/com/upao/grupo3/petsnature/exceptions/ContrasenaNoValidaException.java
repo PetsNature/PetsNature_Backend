@@ -1,7 +1,7 @@
-package pe.com.upao.grupo3.Petsnature.Exceptions;
+package pe.com.upao.grupo3.petsnature.exceptions;
 
-public class ContrasenaNoValida extends RuntimeException{
-    public ContrasenaNoValida(String mensaje){
+public class ContrasenaNoValidaException extends RuntimeException{
+    public ContrasenaNoValidaException(String mensaje){
         super(mensaje);
     }
 }

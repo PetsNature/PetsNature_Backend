@@ -1,12 +1,11 @@
-package pe.com.upao.grupo3.Petsnature.services;
+package pe.com.upao.grupo3.petsnature.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pe.com.upao.grupo3.Petsnature.models.Publicacion;
-import pe.com.upao.grupo3.Petsnature.repositories.PublicacionRepository;
+import pe.com.upao.grupo3.petsnature.models.Publicacion;
+import pe.com.upao.grupo3.petsnature.repositories.PublicacionRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PublicacionServicio {

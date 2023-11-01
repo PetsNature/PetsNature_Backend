@@ -1,4 +1,4 @@
-package pe.com.upao.grupo3.Petsnature.Serializers;
+package pe.com.upao.grupo3.petsnature.serializers;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

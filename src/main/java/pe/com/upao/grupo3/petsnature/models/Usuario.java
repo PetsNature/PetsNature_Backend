@@ -1,4 +1,4 @@
-package pe.com.upao.grupo3.Petsnature.models;
+package pe.com.upao.grupo3.petsnature.models;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

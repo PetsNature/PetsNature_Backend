@@ -1,12 +1,8 @@
-package pe.com.upao.grupo3.Petsnature.Serializers;
+package pe.com.upao.grupo3.petsnature.serializers;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import pe.com.upao.grupo3.Petsnature.models.Usuario;
-
-import java.sql.Time;
-import java.util.Date;
+import pe.com.upao.grupo3.petsnature.models.Usuario;
 
 @Data
 @AllArgsConstructor
