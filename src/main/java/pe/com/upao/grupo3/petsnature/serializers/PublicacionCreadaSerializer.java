@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class PublicacionCreadaSerializer{
-    private String correoU;
     private String categoria;
+    private String correoU;
     private String tema;
     private String mascota;
     private String raza;

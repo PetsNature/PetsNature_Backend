@@ -9,7 +9,6 @@ import pe.com.upao.grupo3.petsnature.models.Usuario;
 public class PublicacionSerializer {
 
     private Usuario usuario;
-    private String categoria;
     private String tema;
     private String mascota;
     private String raza;

@@ -8,6 +8,8 @@ import java.util.Date;
 
 @Data
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "categoria")
 public class Publicacion {
 
     @Id
@@ -17,33 +19,25 @@ public class Publicacion {
     private Date fecha;
     @Column(columnDefinition = "TIME")
     private Time hora;
+    @Column(insertable = false, updatable = false)
+    private String categoria;
     @ManyToOne
     @JoinColumn(name = "correo_u",nullable = false)
     private Usuario usuario;
-    @Column(nullable = false)
-    private String categoria;
     @Column(nullable = false)
     private String tema;
     @Column(nullable = false)
     private String mascota;
     private String raza;
-    private String titulo;
-    private String descripcion;
-    @Column(nullable = false)
-    private String info;
     private String img;
 
-    public Publicacion(Usuario usuario, String categoria, String tema, String mascota, String raza, String titulo, String descripcion, String info, String img) {
+    public Publicacion(Usuario usuario, String tema, String mascota, String raza, String img) {
         fecha=new Date();
         hora=new Time(System.currentTimeMillis());
         this.usuario = usuario;
-        this.categoria = categoria;
         this.tema = tema;
         this.mascota = mascota;
         this.raza = raza;
-        this.titulo=titulo;
-        this.descripcion=descripcion;
-        this.info=info;
         this.img=img;
     }
 
