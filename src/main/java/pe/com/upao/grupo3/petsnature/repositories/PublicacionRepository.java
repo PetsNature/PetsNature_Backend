@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface PublicacionRepository extends JpaRepository<Publicacion,Long> {
-    @Query("SELECT p, u FROM Publicacion p JOIN p.usuario u WHERE p.categoria = ?1")
-    List<Object[]> findAllByCategoria(String categoria);
+    List<Publicacion> findAllByCategoria(String categoria);
 
 }

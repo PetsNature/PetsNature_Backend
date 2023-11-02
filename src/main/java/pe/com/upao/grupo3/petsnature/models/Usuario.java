@@ -3,13 +3,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import pe.com.upao.grupo3.petsnature.prejections.UsuarioProjection;
 
 
 @Data
 @AllArgsConstructor
 @Entity
-public class Usuario implements UsuarioProjection{
+public class Usuario{
 
     @Id
     private String correo;

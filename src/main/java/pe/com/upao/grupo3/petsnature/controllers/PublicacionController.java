@@ -6,8 +6,6 @@ import pe.com.upao.grupo3.petsnature.exceptions.CategoriaNoExistenteException;
 import pe.com.upao.grupo3.petsnature.models.Informacion;
 import pe.com.upao.grupo3.petsnature.models.Pregunta;
 import pe.com.upao.grupo3.petsnature.models.Recomendacion;
-import pe.com.upao.grupo3.petsnature.serializers.PublicacionDTO;
-import pe.com.upao.grupo3.petsnature.serializers.PublicacionUSerializer;
 import pe.com.upao.grupo3.petsnature.services.PublicacionServicio;
 import pe.com.upao.grupo3.petsnature.models.Publicacion;
 import pe.com.upao.grupo3.petsnature.serializers.PublicacionCreadaSerializer;
@@ -19,8 +17,6 @@ import java.util.List;
 public class PublicacionController{
     @Autowired
     private PublicacionServicio publicacionServicio;
-    @Autowired
-    private PublicacionUSerializer publicacionUSerializer;
 
     @PostMapping("descubre/crear_publicacion/{categoria}")
     public PublicacionCreadaSerializer crearPublicacion(@RequestBody PublicacionSerializer publicacionSerializer,@PathVariable String categoria){
@@ -45,7 +41,7 @@ public class PublicacionController{
     }
 
     @GetMapping("descubre/{categoria}")
-    public List<PublicacionDTO> filtroCategoria(@PathVariable String categoria){
+    public List<Publicacion> filtroCategoria(@PathVariable String categoria){
         return publicacionServicio.filtrarporCategoria(categoria);
     }
 }
