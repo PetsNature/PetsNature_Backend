@@ -10,5 +10,4 @@ import java.util.List;
 @Repository
 public interface PublicacionRepository extends JpaRepository<Publicacion,Long> {
     List<Publicacion> findAllByCategoria(String categoria);
-
 }

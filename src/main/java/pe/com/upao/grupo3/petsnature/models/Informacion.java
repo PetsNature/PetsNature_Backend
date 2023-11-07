@@ -1,11 +1,11 @@
 package pe.com.upao.grupo3.petsnature.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -13,14 +13,13 @@ import lombok.NoArgsConstructor;
 public class Informacion extends Publicacion{
     private String titulo;
     private String descripcion;
-    @Column(nullable = false)
-    private String info;
 
-    public Informacion(Usuario usuario, String tema, String mascota, String raza, String img, String titulo, String descripcion, String info) {
-        super(usuario, tema, mascota, raza, img);
+    public Informacion(Usuario usuario, Tema tema, TipoMascota tipoMascota, String img, String contenido, String enlace,String titulo, String descripcion) {
+        super(usuario, tema, tipoMascota,img, contenido,enlace);
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.info = info;
     }
+
+
 
 }

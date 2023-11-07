@@ -1,5 +1,6 @@
 package pe.com.upao.grupo3.petsnature.services;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.com.upao.grupo3.petsnature.exceptions.ContrasenaIncorrectaException;
@@ -26,7 +27,7 @@ public class UsuarioServicio {
         }
 
 
-        if(!validarContrasena(usuario.getContrasena())){
+        if(!usuario.validarContrasena()){
             throw new ContrasenaNoValidaException("La contraseña no cumple con los requisitos minimos");
         }
 
@@ -42,30 +43,26 @@ public class UsuarioServicio {
 
         Usuario usuario=usuarioOpt.get();
 
-        if (usuario.getContrasena().equals(contrasena)){
+        if (!usuario.getContrasena().equals(contrasena)){
             throw new ContrasenaIncorrectaException("La contraseña es incorrecta");
         }
 
         return usuario;
     }
 
-    public static boolean validarContrasena(String contrasena) {
-        int simbolos = 0;
-        int numeros = 0;
-
-        for (int i = 0; i < contrasena.length(); i++) {
-            char caracter = contrasena.charAt(i);
-
-            if ((caracter >= 33 && caracter <= 47) || (caracter >= 58 && caracter <= 64) || (caracter >= 91 && caracter <= 96)) {
-                simbolos++;
-            }
-
-            if (caracter >= 48 && caracter <= 57) {
-                numeros++;
-            }
-        }
-
-        return simbolos > 0 && numeros > 0 && contrasena.length() > 5;
+    public Optional<Usuario> encontrarUsuario(String correo){
+        return usuarioRepository.findById(correo);
     }
+
+    @Transactional
+    public void cambiarImgPerfil(String correo, String img){
+
+        Usuario usuario = usuarioRepository.findById(correo).orElse(null);
+
+        if (usuario != null) {
+            usuario.setImgPerfil(img);
+        }
+    }
+
 
 }

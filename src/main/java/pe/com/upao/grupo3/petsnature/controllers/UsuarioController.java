@@ -1,13 +1,19 @@
 package pe.com.upao.grupo3.petsnature.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pe.com.upao.grupo3.petsnature.exceptions.UsuarioNoExisteException;
 import pe.com.upao.grupo3.petsnature.serializers.InicioSesionSerializer;
 import pe.com.upao.grupo3.petsnature.serializers.UsuarioIniciadoSerializer;
 import pe.com.upao.grupo3.petsnature.serializers.UsuarioSerializer;
 import pe.com.upao.grupo3.petsnature.models.Usuario;
 import pe.com.upao.grupo3.petsnature.services.UsuarioServicio;
+
+import java.io.File;
+import java.io.IOException;
 
 
 @RestController
@@ -17,6 +23,8 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+    @Value("${perfil.foto.directorio}")
+    private String directorioFotos;
 
     /*@PostMapping("login")
     public String login( @RequestBody String correo, @RequestBody String contrasena, HttpSession session){
@@ -55,6 +63,17 @@ public class UsuarioController {
         return usuarioSerializer;
     }
 
-
-
+    @PostMapping("/{id}/subir-foto")
+    public String subirFoto(@PathVariable String id, @RequestParam("imgPerfil") MultipartFile foto) throws IOException {
+        Usuario usuario = usuarioServicio.encontrarUsuario(id).orElse(null);
+        if (usuario==null){
+            return "esta vacia el usuario";
+        }
+        if (usuario != null && !foto.isEmpty()) {
+            String rutaFoto = directorioFotos + File.separator + foto.getOriginalFilename();
+            foto.transferTo(new File(rutaFoto));
+            usuarioServicio.cambiarImgPerfil(id,rutaFoto);
+        }
+        return "redirect:/perfil/" + id;
+    }
 }

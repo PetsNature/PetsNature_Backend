@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Data
@@ -24,33 +25,30 @@ public class Publicacion {
     @ManyToOne
     @JoinColumn(name = "correo_u",nullable = false)
     private Usuario usuario;
-    @Column(nullable = false)
-    private String tema;
-    @Column(nullable = false)
-    private String mascota;
-    private String raza;
+    @ManyToOne
+    @JoinColumn(name = "tema", nullable = false)
+    private Tema tema;
+    @ManyToOne
+    @JoinColumn(name = "tipo_mascota", nullable = false)
+    private TipoMascota tipoMascota;
     private String img;
+    @Column(nullable = false)
+    private String contenido;
+    @Column
+    private String enlace;
 
-    public Publicacion(Usuario usuario, String tema, String mascota, String raza, String img) {
+    public Publicacion(Usuario usuario, Tema tema, TipoMascota tipoMascota, String img, String contenido, String enlace) {
         fecha=new Date();
         hora=new Time(System.currentTimeMillis());
         this.usuario = usuario;
         this.tema = tema;
-        this.mascota = mascota;
-        this.raza = raza;
+        this.tipoMascota=tipoMascota;
         this.img=img;
+        this.contenido=contenido;
+        this.enlace=enlace;
     }
 
     public Publicacion() {
     }
 
-    /*private Time obtenerHora() {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(DataSourceBuilder.create().build());
-        return jdbcTemplate.queryForObject("SELECT current_time", Time.class);
-    }
-
-    private Date obtenerFecha() {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(DataSourceBuilder.create().build());
-        return jdbcTemplate.queryForObject("SELECT current_timestamp", Date.class);
-    }*/
 }
