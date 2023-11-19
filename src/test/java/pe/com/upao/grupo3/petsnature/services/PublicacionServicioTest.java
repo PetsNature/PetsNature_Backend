@@ -8,6 +8,8 @@ import org.mockito.MockitoAnnotations;
 import pe.com.upao.grupo3.petsnature.exceptions.CategoriaNoExistenteException;
 import pe.com.upao.grupo3.petsnature.models.Publicacion;
 import pe.com.upao.grupo3.petsnature.repositories.PublicacionRepository;
+import pe.com.upao.grupo3.petsnature.serializers.PublicacionSerializer;
+
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,7 +23,8 @@ public class PublicacionServicioTest {
     private Publicacion publicacion;
 
     @Mock
-    private List<Publicacion> publicaciones;
+    private List<PublicacionSerializer> publicaciones;
+
 
     @InjectMocks
     private PublicacionServicio publicacionServicio;
@@ -48,22 +51,9 @@ public class PublicacionServicioTest {
 
         when(publicacionRepository.findAllByCategoria(categoria)).thenReturn(publicaciones);
 
-        List<Publicacion> result = publicacionServicio.filtrarporCategoria(categoria);
+        List<PublicacionSerializer> result = publicacionServicio.filtrarporCategoria(categoria);
 
         assertEquals(publicaciones,result);
     }
 
-    /*//Escenario Alternativo de filtrar por categoria: La categoria no existe
-    @Test
-    public void testFiltrarPorCategoriaA(){
-
-        String categoria="Servicio";
-
-        when(publicacionRepository.findAllByCategoria(categoria)).thenReturn(publicaciones);
-        when(publicaciones.isEmpty()).thenReturn(true);
-
-        assertThrows(CategoriaNoExistenteException.class, ()->{
-            publicacionServicio.filtrarporCategoria(categoria);
-        });
-    }*/
 }

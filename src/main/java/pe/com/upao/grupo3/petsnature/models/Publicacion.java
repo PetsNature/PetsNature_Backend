@@ -10,7 +10,6 @@ import java.util.Date;
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "categoria")
 public class Publicacion {
 
     @Id
@@ -20,10 +19,10 @@ public class Publicacion {
     private Date fecha;
     @Column(columnDefinition = "TIME")
     private Time hora;
-    @Column(insertable = false, updatable = false)
+    @Column(nullable = false)
     private String categoria;
     @ManyToOne
-    @JoinColumn(name = "correo_u",nullable = false)
+    @JoinColumn(name = "id_usuario",nullable = false)
     private Usuario usuario;
     @ManyToOne
     @JoinColumn(name = "tema", nullable = false)
@@ -36,17 +35,22 @@ public class Publicacion {
     private String contenido;
     @Column
     private String enlace;
+    @Column
+    private int reacciones=0;
 
-    public Publicacion(Usuario usuario, Tema tema, TipoMascota tipoMascota, String img, String contenido, String enlace) {
+    public Publicacion(Usuario usuario, String categoria,Tema tema, TipoMascota tipoMascota, String img, String contenido, String enlace) {
         fecha=new Date();
         hora=new Time(System.currentTimeMillis());
         this.usuario = usuario;
+        this.categoria=categoria;
         this.tema = tema;
         this.tipoMascota=tipoMascota;
         this.img=img;
         this.contenido=contenido;
         this.enlace=enlace;
     }
+
+
 
     public Publicacion() {
     }

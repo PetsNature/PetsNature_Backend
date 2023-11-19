@@ -9,5 +9,4 @@ public class UsuarioSerializer {
     String correo;
     String nombre;
     String contrasena;
-    String imgPerfil;
 }

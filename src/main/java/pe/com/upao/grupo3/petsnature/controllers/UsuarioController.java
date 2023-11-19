@@ -36,9 +36,8 @@ public class UsuarioController {
     @PostMapping("/login")
     public UsuarioIniciadoSerializer login(@RequestBody InicioSesionSerializer inicioSesionSerializer){
         usuarioAuten=usuarioServicio.iniciarSesion(inicioSesionSerializer.getCorreo(),inicioSesionSerializer.getConstrasena());
-        UsuarioIniciadoSerializer uis= new UsuarioIniciadoSerializer(usuarioAuten.getCorreo(), usuarioAuten.getNombre(), usuarioAuten.getImgPerfil());
         //session.setAttribute("UsuarioIniciado",usuario);
-        return uis;
+        return new UsuarioIniciadoSerializer(usuarioAuten.getCorreo(), usuarioAuten.getNombre(), usuarioAuten.getImgPerfil());
     }
 
     @GetMapping("/home/logout")
@@ -58,17 +57,15 @@ public class UsuarioController {
     }
 
     @PostMapping("/registro")
-    public UsuarioSerializer registro(@RequestBody UsuarioSerializer usuarioSerializer){
-        usuarioServicio.registrarUsuario(new Usuario(usuarioSerializer.getCorreo(),usuarioSerializer.getNombre(),usuarioSerializer.getContrasena(),usuarioSerializer.getImgPerfil()));
-        return usuarioSerializer;
+    public Usuario registro(@RequestBody UsuarioSerializer usuarioSerializer){
+        Usuario usuario= new Usuario(usuarioSerializer.getCorreo(),usuarioSerializer.getNombre(),usuarioSerializer.getContrasena());
+        usuarioServicio.registrarUsuario(usuario);
+        return usuario;
     }
 
     @PostMapping("/{id}/subir-foto")
-    public String subirFoto(@PathVariable String id, @RequestParam("imgPerfil") MultipartFile foto) throws IOException {
-        Usuario usuario = usuarioServicio.encontrarUsuario(id).orElse(null);
-        if (usuario==null){
-            return "esta vacia el usuario";
-        }
+    public String subirFoto(@PathVariable Long id, @RequestParam("imgPerfil") MultipartFile foto) throws IOException {
+        Usuario usuario = usuarioServicio.encontrarUsuario(id);
         if (usuario != null && !foto.isEmpty()) {
             String rutaFoto = directorioFotos + File.separator + foto.getOriginalFilename();
             foto.transferTo(new File(rutaFoto));

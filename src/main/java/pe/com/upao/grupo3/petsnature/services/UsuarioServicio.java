@@ -20,7 +20,7 @@ public class UsuarioServicio {
 
     public Usuario registrarUsuario(Usuario usuario){
 
-        Optional<Usuario> usuarioOptional=usuarioRepository.findById(usuario.getCorreo());
+        Optional<Usuario> usuarioOptional=usuarioRepository.findByCorreo(usuario.getCorreo());
 
         if (usuarioOptional.isPresent()){
             throw new UsuarioYaExisteException("El correo indicado ya esta registrado");
@@ -36,7 +36,7 @@ public class UsuarioServicio {
 
     public Usuario iniciarSesion(String correo, String contrasena){
 
-        Optional<Usuario> usuarioOpt=usuarioRepository.findById(correo);
+        Optional<Usuario> usuarioOpt=usuarioRepository.findByCorreo(correo);
         if(usuarioOpt.isEmpty()){
             throw new UsuarioNoExisteException("Correo no valido vuelva a intentar");
         }
@@ -50,14 +50,19 @@ public class UsuarioServicio {
         return usuario;
     }
 
-    public Optional<Usuario> encontrarUsuario(String correo){
-        return usuarioRepository.findById(correo);
+    public Usuario encontrarUsuario(Long id){
+        Usuario usuario =usuarioRepository.findById(id).orElse(null);
+
+        if (usuario==null){
+            throw new UsuarioNoExisteException("Este usuario no existe");
+        }
+        return usuario;
     }
 
     @Transactional
-    public void cambiarImgPerfil(String correo, String img){
+    public void cambiarImgPerfil(Long id, String img){
 
-        Usuario usuario = usuarioRepository.findById(correo).orElse(null);
+        Usuario usuario = usuarioRepository.findById(id).orElse(null);
 
         if (usuario != null) {
             usuario.setImgPerfil(img);

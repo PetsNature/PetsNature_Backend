@@ -16,10 +16,11 @@ public class PublicacionCreadaSerializer{
     private Date fecha;
     private Time hora;
     private String categoria;
-    private String correoU;
+    private Long id_usuario;
     private Tema tema;
     private TipoMascota tipoMascota;
     private String enlace;
     private String contenido;
     private String img;
+    private int reacciones;
 }

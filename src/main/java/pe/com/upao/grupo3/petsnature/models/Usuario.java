@@ -11,6 +11,10 @@ import lombok.Data;
 public class Usuario{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
     private String correo;
 
     @Column(nullable = false)
@@ -23,6 +27,12 @@ public class Usuario{
     private String imgPerfil;
 
     public Usuario(){
+    }
+
+    public Usuario(String correo, String nombre, String contrasena) {
+        this.correo = correo;
+        this.nombre = nombre;
+        this.contrasena = contrasena;
     }
 
     public boolean validarContrasena() {

@@ -39,7 +39,7 @@ public class UsuarioServicioTest {
     public void testregistrarUsuario(){
         String correoUsuario="usuario@gmail.com";
 
-        when(usuarioRepository.findById(correoUsuario)).thenReturn(Optional.empty());
+        when(usuarioRepository.findByCorreo(correoUsuario)).thenReturn(Optional.empty());
         when(usuario.validarContrasena()).thenReturn(true);
         when(usuarioRepository.save(usuario)).thenReturn(usuario);
 
@@ -53,7 +53,7 @@ public class UsuarioServicioTest {
     public void testregistrarUsuarioA1(){
         String correoUsuario="usuario@gmail.com";
 
-        when(usuarioRepository.findById(correoUsuario)).thenReturn(Optional.of(usuario));
+        when(usuarioRepository.findByCorreo(correoUsuario)).thenReturn(Optional.of(usuario));
         when(Optional.of(usuario).get().getCorreo()).thenReturn(correoUsuario);
 
         assertThrows(UsuarioYaExisteException.class, ()->{
@@ -66,7 +66,7 @@ public class UsuarioServicioTest {
     public void testregistrarUsuarioA2(){
         String correoUsuario="usuario@gmail.com";
 
-        when(usuarioRepository.findById(correoUsuario)).thenReturn(Optional.empty());
+        when(usuarioRepository.findByCorreo(correoUsuario)).thenReturn(Optional.empty());
         when(usuario.validarContrasena()).thenReturn(false);
         assertThrows(ContrasenaNoValidaException.class, ()->{
             usuarioServicio.registrarUsuario(usuario);
@@ -79,7 +79,7 @@ public class UsuarioServicioTest {
         String correoUsuario="usuario@gmail.com";
         String contrasenaUsuario="12345";
 
-        when(usuarioRepository.findById(correoUsuario)).thenReturn(Optional.of(usuario));
+        when(usuarioRepository.findByCorreo(correoUsuario)).thenReturn(Optional.of(usuario));
         when(usuario.getContrasena()).thenReturn(contrasenaUsuario);
 
         Usuario result = usuarioServicio.iniciarSesion(correoUsuario,contrasenaUsuario);
@@ -92,7 +92,7 @@ public class UsuarioServicioTest {
         String correoUsuario="usuario@gmail.com";
         String contrasenaUsuario="12345";
 
-        when(usuarioRepository.findById(correoUsuario)).thenReturn(Optional.empty());
+        when(usuarioRepository.findByCorreo(correoUsuario)).thenReturn(Optional.empty());
 
         assertThrows(UsuarioNoExisteException.class, ()->{
             usuarioServicio.iniciarSesion(correoUsuario,contrasenaUsuario);
@@ -106,7 +106,7 @@ public class UsuarioServicioTest {
         String contrasenaUsuario="12345";
         String contrasenaIngresada="12346";
 
-        when(usuarioRepository.findById(correoUsuario)).thenReturn(Optional.of(usuario));
+        when(usuarioRepository.findByCorreo(correoUsuario)).thenReturn(Optional.of(usuario));
         when(usuario.getContrasena()).thenReturn(contrasenaUsuario);
 
         assertThrows(ContrasenaIncorrectaException.class, ()->{

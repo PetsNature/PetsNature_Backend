@@ -1,11 +1,14 @@
 package pe.com.upao.grupo3.petsnature.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import pe.com.upao.grupo3.petsnature.exceptions.CategoriaNoExistenteException;
 import pe.com.upao.grupo3.petsnature.exceptions.PublicacionNoExisteException;
 import pe.com.upao.grupo3.petsnature.models.Publicacion;
+import pe.com.upao.grupo3.petsnature.models.Usuario;
 import pe.com.upao.grupo3.petsnature.repositories.PublicacionRepository;
+import pe.com.upao.grupo3.petsnature.serializers.PublicacionSerializer;
 
 import java.sql.Time;
 import java.util.Date;
@@ -21,7 +24,7 @@ public class PublicacionServicio {
         return publicacionRepository.save(publicacion);
     }
 
-    public List<Publicacion> filtrarporCategoria(String categoria){
+    public List<PublicacionSerializer> filtrarporCategoria(String categoria){
         if (publicacionRepository.findAllByCategoria(categoria).isEmpty()){
             throw new CategoriaNoExistenteException("La categoria no existe");
         }
@@ -44,5 +47,9 @@ public class PublicacionServicio {
         }
         Publicacion pubHora=publicacion.get();
         return pubHora.getFecha();
+    }
+
+    public List<PublicacionSerializer> verMisPublicaciones(Usuario usuario){
+        return publicacionRepository.findAllByUsuario(usuario);
     }
 }
