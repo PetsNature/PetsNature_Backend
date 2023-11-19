@@ -5,12 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.com.upao.grupo3.petsnature.exceptions.CategoriaNoExistenteException;
 import pe.com.upao.grupo3.petsnature.exceptions.PublicacionNoExisteException;
-import pe.com.upao.grupo3.petsnature.models.Publicacion;
-import pe.com.upao.grupo3.petsnature.models.RazaAnimal;
-import pe.com.upao.grupo3.petsnature.models.TipoMascota;
-import pe.com.upao.grupo3.petsnature.models.Usuario;
+import pe.com.upao.grupo3.petsnature.exceptions.TemaNoExistenteException;
+import pe.com.upao.grupo3.petsnature.models.*;
 import pe.com.upao.grupo3.petsnature.repositories.PublicacionRepository;
 import pe.com.upao.grupo3.petsnature.repositories.RazaAnimalRepository;
+import pe.com.upao.grupo3.petsnature.repositories.TemaRepository;
 import pe.com.upao.grupo3.petsnature.repositories.TipoMascotaRepository;
 import pe.com.upao.grupo3.petsnature.serializers.PublicacionSerializer;
 
@@ -29,6 +28,9 @@ public class PublicacionService {
 
     @Autowired
     private RazaAnimalRepository razaAnimalRepository;
+
+    @Autowired
+    private TemaRepository temaRepository;
 
     public Publicacion crearPublicacion(Publicacion publicacion){
         return publicacionRepository.save(publicacion);
@@ -78,9 +80,8 @@ public class PublicacionService {
         publicacion.setReacciones(reacciones);
         return reacciones;
     }
-
-    public List<PublicacionSerializer> filtrarPorTipoMascota(String categoria,String tipoMascota){
-        TipoMascota tipoMascota1=tipoMascotaRepository.findById(tipoMascota).orElse(null);
+    /*public List<PublicacionSerializer> filtrarPorTipoMascota(String categoria,String tipoMascota){
+       TipoMascota tipoMascota1=tipoMascotaRepository.findById(tipoMascota).orElse(null);
         return publicacionRepository.findAllByTipoMascota(categoria,tipoMascota1);
     }
 
@@ -88,5 +89,32 @@ public class PublicacionService {
         TipoMascota tipoMascota1=tipoMascotaRepository.findById(tipoMascota).orElse(null);
         RazaAnimal razaAnimal1=razaAnimalRepository.findById(razaAnimal).orElse(null);
         return publicacionRepository.findAllByTipoMascotaAndRaza(categoria,tipoMascota1,razaAnimal1);
+    }
+
+    public List<PublicacionSerializer> filtrarporTema(String categoria, String tipoMascota,String razaAnimal,String tema){
+        TipoMascota tipoMascota1=tipoMascotaRepository.findById(tipoMascota).orElse(null);
+        RazaAnimal razaAnimal1=razaAnimalRepository.findById(razaAnimal).orElse(null);
+        Tema tema1=temaRepository.findById(tema).orElse(null);
+        return publicacionRepository.findAllByTema(tema1);
+    }
+*/
+    public List<PublicacionSerializer> filtrarPublicaciones(String categoria, String tipoMascota,String razaAnimal,String tema){
+        TipoMascota tipoMascota1=tipoMascotaRepository.findById(tipoMascota).orElse(null);
+        RazaAnimal razaAnimal1=razaAnimalRepository.findById(razaAnimal).orElse(null);
+        Tema tema1=temaRepository.findById(tema).orElse(null);
+        if (tipoMascota.equals("no especificado") && tema.equals("no seleccionado") && razaAnimal.equals("no especificada")){
+            return publicacionRepository.findAllByCategoria(categoria);
+        } else if (tema.equals("no seleccionado") && razaAnimal.equals("no especificada")){
+            return publicacionRepository.findAllByTipoMascota(categoria,tipoMascota1);
+        } else if (tipoMascota.equals("no especificado") && razaAnimal.equals("no especificada")) {
+            return publicacionRepository.findAllByTema(categoria,tema1);
+        } else if (tema.equals("no seleccionado")) {
+            return publicacionRepository.findAllByTipoMascotaAndRaza(categoria,tipoMascota1,razaAnimal1);
+        } else if (razaAnimal.equals("no especificada")) {
+            return publicacionRepository.findAllByTemaAndTipoMascota(categoria,tipoMascota1,tema1);
+        }
+
+        return publicacionRepository.findAllByCategoriaAndTipoMascotaAndRazaAndTema(categoria,tipoMascota1,razaAnimal1,tema1);
+
     }
 }
