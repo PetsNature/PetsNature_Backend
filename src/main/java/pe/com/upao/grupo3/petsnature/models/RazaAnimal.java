@@ -11,9 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RazaAnimal {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(nullable = false)
     private String nombre;
     @ManyToOne
     @JoinColumn(name = "nombre_mascota",nullable = false)

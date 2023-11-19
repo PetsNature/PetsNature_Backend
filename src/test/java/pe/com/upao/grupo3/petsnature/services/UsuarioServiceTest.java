@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-public class UsuarioServicioTest {
+public class UsuarioServiceTest {
 
     @Mock
     private UsuarioRepository usuarioRepository;
@@ -27,7 +27,7 @@ public class UsuarioServicioTest {
     private Usuario usuario;
 
     @InjectMocks
-    private UsuarioServicio usuarioServicio;
+    private UsuarioService usuarioService;
 
     @BeforeEach
     public void setUp(){
@@ -43,7 +43,7 @@ public class UsuarioServicioTest {
         when(usuario.validarContrasena()).thenReturn(true);
         when(usuarioRepository.save(usuario)).thenReturn(usuario);
 
-        Usuario result= usuarioServicio.registrarUsuario(usuario);
+        Usuario result= usuarioService.registrarUsuario(usuario);
 
         assertEquals(usuario,result);
     }
@@ -57,7 +57,7 @@ public class UsuarioServicioTest {
         when(Optional.of(usuario).get().getCorreo()).thenReturn(correoUsuario);
 
         assertThrows(UsuarioYaExisteException.class, ()->{
-            usuarioServicio.registrarUsuario(usuario);
+            usuarioService.registrarUsuario(usuario);
         });
     }
 
@@ -69,7 +69,7 @@ public class UsuarioServicioTest {
         when(usuarioRepository.findByCorreo(correoUsuario)).thenReturn(Optional.empty());
         when(usuario.validarContrasena()).thenReturn(false);
         assertThrows(ContrasenaNoValidaException.class, ()->{
-            usuarioServicio.registrarUsuario(usuario);
+            usuarioService.registrarUsuario(usuario);
         });
     }
 
@@ -82,7 +82,7 @@ public class UsuarioServicioTest {
         when(usuarioRepository.findByCorreo(correoUsuario)).thenReturn(Optional.of(usuario));
         when(usuario.getContrasena()).thenReturn(contrasenaUsuario);
 
-        Usuario result = usuarioServicio.iniciarSesion(correoUsuario,contrasenaUsuario);
+        Usuario result = usuarioService.iniciarSesion(correoUsuario,contrasenaUsuario);
         assertEquals(usuario,result);
     }
 
@@ -95,7 +95,7 @@ public class UsuarioServicioTest {
         when(usuarioRepository.findByCorreo(correoUsuario)).thenReturn(Optional.empty());
 
         assertThrows(UsuarioNoExisteException.class, ()->{
-            usuarioServicio.iniciarSesion(correoUsuario,contrasenaUsuario);
+            usuarioService.iniciarSesion(correoUsuario,contrasenaUsuario);
         });
     }
 
@@ -110,7 +110,7 @@ public class UsuarioServicioTest {
         when(usuario.getContrasena()).thenReturn(contrasenaUsuario);
 
         assertThrows(ContrasenaIncorrectaException.class, ()->{
-            usuarioServicio.iniciarSesion(correoUsuario,contrasenaIngresada);
+            usuarioService.iniciarSesion(correoUsuario,contrasenaIngresada);
         });
     }
 

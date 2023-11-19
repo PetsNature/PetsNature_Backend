@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import pe.com.upao.grupo3.petsnature.exceptions.CategoriaNoExistenteException;
 import pe.com.upao.grupo3.petsnature.models.Publicacion;
 import pe.com.upao.grupo3.petsnature.repositories.PublicacionRepository;
 import pe.com.upao.grupo3.petsnature.serializers.PublicacionSerializer;
@@ -15,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-public class PublicacionServicioTest {
+public class PublicacionServiceTest {
     @Mock
     private PublicacionRepository publicacionRepository;
 
@@ -27,7 +26,7 @@ public class PublicacionServicioTest {
 
 
     @InjectMocks
-    private PublicacionServicio publicacionServicio;
+    private PublicacionService publicacionService;
 
     @BeforeEach
     public void setUp(){
@@ -39,7 +38,7 @@ public class PublicacionServicioTest {
     public void testCrearPublicacion(){
         when(publicacionRepository.save(publicacion)).thenReturn(publicacion);
 
-        Publicacion result = publicacionServicio.crearPublicacion(publicacion);
+        Publicacion result = publicacionService.crearPublicacion(publicacion);
 
         assertEquals(publicacion,result);
     }
@@ -51,7 +50,7 @@ public class PublicacionServicioTest {
 
         when(publicacionRepository.findAllByCategoria(categoria)).thenReturn(publicaciones);
 
-        List<PublicacionSerializer> result = publicacionServicio.filtrarporCategoria(categoria);
+        List<PublicacionSerializer> result = publicacionService.filtrarporCategoria(categoria);
 
         assertEquals(publicaciones,result);
     }

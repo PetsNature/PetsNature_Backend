@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -15,5 +16,5 @@ public class TipoMascota {
     @Id
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoMascota")
-    private ArrayList<RazaAnimal> razas;
+    private List<RazaAnimal> razas;
 }

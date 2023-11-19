@@ -13,7 +13,7 @@ import pe.com.upao.grupo3.petsnature.repositories.UsuarioRepository;
 import java.util.Optional;
 
 @Service
-public class UsuarioServicio {
+public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;

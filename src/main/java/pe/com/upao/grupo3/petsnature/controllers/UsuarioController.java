@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pe.com.upao.grupo3.petsnature.exceptions.UsuarioNoExisteException;
 import pe.com.upao.grupo3.petsnature.serializers.InicioSesionSerializer;
 import pe.com.upao.grupo3.petsnature.serializers.UsuarioIniciadoSerializer;
 import pe.com.upao.grupo3.petsnature.serializers.UsuarioSerializer;
 import pe.com.upao.grupo3.petsnature.models.Usuario;
-import pe.com.upao.grupo3.petsnature.services.UsuarioServicio;
+import pe.com.upao.grupo3.petsnature.services.UsuarioService;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +21,7 @@ public class UsuarioController {
 
 
     @Autowired
-    private UsuarioServicio usuarioServicio;
+    private UsuarioService usuarioService;
     @Value("${perfil.foto.directorio}")
     private String directorioFotos;
 
@@ -35,7 +34,7 @@ public class UsuarioController {
 
     @PostMapping("/login")
     public UsuarioIniciadoSerializer login(@RequestBody InicioSesionSerializer inicioSesionSerializer){
-        usuarioAuten=usuarioServicio.iniciarSesion(inicioSesionSerializer.getCorreo(),inicioSesionSerializer.getConstrasena());
+        usuarioAuten= usuarioService.iniciarSesion(inicioSesionSerializer.getCorreo(),inicioSesionSerializer.getConstrasena());
         //session.setAttribute("UsuarioIniciado",usuario);
         return new UsuarioIniciadoSerializer(usuarioAuten.getCorreo(), usuarioAuten.getNombre(), usuarioAuten.getImgPerfil());
     }
@@ -59,17 +58,17 @@ public class UsuarioController {
     @PostMapping("/registro")
     public Usuario registro(@RequestBody UsuarioSerializer usuarioSerializer){
         Usuario usuario= new Usuario(usuarioSerializer.getCorreo(),usuarioSerializer.getNombre(),usuarioSerializer.getContrasena());
-        usuarioServicio.registrarUsuario(usuario);
+        usuarioService.registrarUsuario(usuario);
         return usuario;
     }
 
     @PostMapping("/{id}/subir-foto")
     public String subirFoto(@PathVariable Long id, @RequestParam("imgPerfil") MultipartFile foto) throws IOException {
-        Usuario usuario = usuarioServicio.encontrarUsuario(id);
+        Usuario usuario = usuarioService.encontrarUsuario(id);
         if (usuario != null && !foto.isEmpty()) {
             String rutaFoto = directorioFotos + File.separator + foto.getOriginalFilename();
             foto.transferTo(new File(rutaFoto));
-            usuarioServicio.cambiarImgPerfil(id,rutaFoto);
+            usuarioService.cambiarImgPerfil(id,rutaFoto);
         }
         return "redirect:/perfil/" + id;
     }
