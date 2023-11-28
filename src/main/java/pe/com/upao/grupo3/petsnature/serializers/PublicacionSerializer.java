@@ -18,4 +18,5 @@ public class PublicacionSerializer {
     private String enlace;
     private String titulo;
     private String descripcion;
+    
 }

@@ -22,4 +22,5 @@ public class PublicacionCreadaSerializer{
     private String enlace;
     private String contenido;
     private String img;
+    
 }
