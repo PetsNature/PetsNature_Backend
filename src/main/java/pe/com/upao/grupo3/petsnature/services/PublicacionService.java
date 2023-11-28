@@ -43,24 +43,6 @@ public class PublicacionService {
         return publicacionRepository.findAllByCategoria(categoria);
     }
 
-    public Time obtenerHora(Long id){
-        Optional<Publicacion> publicacion=publicacionRepository.findById(id);
-        if (publicacion.isEmpty()){
-            throw new PublicacionNoExisteException("La publicacion no existe");
-        }
-        Publicacion pubHora=publicacion.get();
-        return pubHora.getHora();
-    }
-
-    public Date obtenerFecha(Long id){
-        Optional<Publicacion> publicacion=publicacionRepository.findById(id);
-        if (publicacion.isEmpty()){
-            throw new PublicacionNoExisteException("La publicacion no existe");
-        }
-        Publicacion pubHora=publicacion.get();
-        return pubHora.getFecha();
-    }
-
     public List<PublicacionSerializer> verMisPublicaciones(Usuario usuario){
         return publicacionRepository.findAllByUsuario(usuario);
     }
@@ -80,24 +62,6 @@ public class PublicacionService {
         publicacion.setReacciones(reacciones);
         return reacciones;
     }
-    /*public List<PublicacionSerializer> filtrarPorTipoMascota(String categoria,String tipoMascota){
-       TipoMascota tipoMascota1=tipoMascotaRepository.findById(tipoMascota).orElse(null);
-        return publicacionRepository.findAllByTipoMascota(categoria,tipoMascota1);
-    }
-
-    public List<PublicacionSerializer> filtrarPorTipoMascotaYRaza(String categoria,String tipoMascota, String razaAnimal){
-        TipoMascota tipoMascota1=tipoMascotaRepository.findById(tipoMascota).orElse(null);
-        RazaAnimal razaAnimal1=razaAnimalRepository.findById(razaAnimal).orElse(null);
-        return publicacionRepository.findAllByTipoMascotaAndRaza(categoria,tipoMascota1,razaAnimal1);
-    }
-
-    public List<PublicacionSerializer> filtrarporTema(String categoria, String tipoMascota,String razaAnimal,String tema){
-        TipoMascota tipoMascota1=tipoMascotaRepository.findById(tipoMascota).orElse(null);
-        RazaAnimal razaAnimal1=razaAnimalRepository.findById(razaAnimal).orElse(null);
-        Tema tema1=temaRepository.findById(tema).orElse(null);
-        return publicacionRepository.findAllByTema(tema1);
-    }
-*/
     public List<PublicacionSerializer> filtrarPublicaciones(String categoria, String tipoMascota,String razaAnimal,String tema){
         TipoMascota tipoMascota1=tipoMascotaRepository.findById(tipoMascota).orElse(null);
         RazaAnimal razaAnimal1=razaAnimalRepository.findById(razaAnimal).orElse(null);

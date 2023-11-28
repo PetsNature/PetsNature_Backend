@@ -12,6 +12,7 @@ import pe.com.upao.grupo3.petsnature.services.UsuarioService;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class ComentarioController {
     @Autowired
     private ComentarioService comentarioService;

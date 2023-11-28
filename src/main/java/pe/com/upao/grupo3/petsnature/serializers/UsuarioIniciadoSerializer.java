@@ -6,7 +6,9 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class UsuarioIniciadoSerializer {
+    Long id;
     String correo;
     String nombre;
     String imgPerfil;
+    String token;
 }

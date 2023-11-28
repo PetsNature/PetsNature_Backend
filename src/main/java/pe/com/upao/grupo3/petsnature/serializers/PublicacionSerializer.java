@@ -3,6 +3,7 @@ package pe.com.upao.grupo3.petsnature.serializers;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.core.io.Resource;
 import pe.com.upao.grupo3.petsnature.models.Tema;
 import pe.com.upao.grupo3.petsnature.models.TipoMascota;
 import pe.com.upao.grupo3.petsnature.models.Usuario;
@@ -21,4 +22,6 @@ public class PublicacionSerializer {
     private String enlace;
     private String nombreU;
     private String imgU;
+    private int reacciones;
+
 }

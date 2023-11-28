@@ -31,8 +31,9 @@ public class Publicacion {
     @ManyToOne
     @JoinColumn(name = "tipo_mascota", nullable = false)
     private TipoMascota tipoMascota;
+    @Column(length = 10485760)
     private String img;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10485760)
     private String contenido;
     @Column
     private String enlace;

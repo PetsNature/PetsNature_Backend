@@ -1,5 +1,4 @@
 package pe.com.upao.grupo3.petsnature.services;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -11,7 +10,6 @@ import pe.com.upao.grupo3.petsnature.serializers.PublicacionSerializer;
 
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 public class PublicacionServiceTest {
@@ -54,5 +52,7 @@ public class PublicacionServiceTest {
 
         assertEquals(publicaciones,result);
     }
+
+
 
 }

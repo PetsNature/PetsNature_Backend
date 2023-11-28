@@ -9,7 +9,10 @@ import pe.com.upao.grupo3.petsnature.exceptions.UsuarioNoExisteException;
 import pe.com.upao.grupo3.petsnature.exceptions.UsuarioYaExisteException;
 import pe.com.upao.grupo3.petsnature.models.Usuario;
 import pe.com.upao.grupo3.petsnature.repositories.UsuarioRepository;
+import pe.com.upao.grupo3.petsnature.serializers.InicioSesionSerializer;
+import pe.com.upao.grupo3.petsnature.serializers.UsuarioPerfilSerializer;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -59,6 +62,14 @@ public class UsuarioService {
         return usuario;
     }
 
+    public UsuarioPerfilSerializer verPerfil(Long id){
+        Usuario usuario=usuarioRepository.findById(id).orElse(null);
+        if (usuario==null){
+            throw new UsuarioNoExisteException("El usuario no existe");
+        }
+        return new UsuarioPerfilSerializer(usuario.getCorreo(),usuario.getNombre(),usuario.getContrasena(),usuario.getImgPerfil());
+    }
+
     @Transactional
     public void cambiarImgPerfil(Long id, String img){
 
@@ -70,4 +81,7 @@ public class UsuarioService {
     }
 
 
+    public List<InicioSesionSerializer> listarUsuarios() {
+        return usuarioRepository.listarUsuarios();
+    }
 }

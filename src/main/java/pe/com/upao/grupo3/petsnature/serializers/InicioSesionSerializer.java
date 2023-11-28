@@ -6,5 +6,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class InicioSesionSerializer {
     String correo;
-    String constrasena;
+    String contrasena;
 }

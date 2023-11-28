@@ -29,6 +29,13 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.0")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("io.jsonwebtoken:jjwt:0.9.1")
+	implementation("javax.xml.bind:jaxb-api:2.3.0")
+	implementation("commons-fileupload:commons-fileupload:1.4")
+	implementation("commons-io:commons-io:2.11.0")
 }
 
 tasks.withType<Test> {
