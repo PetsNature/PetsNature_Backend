@@ -16,3 +16,4 @@ public class PreguntaCreadaSerializer extends PublicacionCreadaSerializer{
         super(fecha, hora, categoria, correoU, tema, tipoMascota, enlace, contenido, img);
     }
 }
+//comentario//

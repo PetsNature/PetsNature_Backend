@@ -36,7 +36,7 @@ public class Publicacion {
     private String contenido;
     @Column
     private String enlace;
-
+//constructor//
     public Publicacion(Usuario usuario, Tema tema, TipoMascota tipoMascota, String img, String contenido, String enlace) {
         fecha=new Date();
         hora=new Time(System.currentTimeMillis());
