@@ -11,7 +11,7 @@ import pe.com.upao.grupo3.petsnature.services.PublicacionServicio;
 import pe.com.upao.grupo3.petsnature.models.Publicacion;
 
 import java.util.List;
-//hola//
+
 
 @RestController
 public class PublicacionController{
@@ -49,7 +49,9 @@ public class PublicacionController{
 
     @GetMapping("descubre/{categoria}")
     public List<Publicacion> filtroCategoria(@PathVariable String categoria){
-        return publicacionServicio.filtrarporCategoria(categoria); //hola//
+        return publicacionServicio.filtrarporCategoria(categoria); 
     }
 
 }
+
+//:D

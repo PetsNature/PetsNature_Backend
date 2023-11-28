@@ -17,3 +17,4 @@ public class Pregunta extends Publicacion{
         super(usuario, tema, tipoMascota, img, contenido, enlace);
     }
 }
+ //Esto serviria para poner una publicacion de tipo pregunta :D

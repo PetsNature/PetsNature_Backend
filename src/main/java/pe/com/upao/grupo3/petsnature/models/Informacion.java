@@ -20,6 +20,6 @@ public class Informacion extends Publicacion{
         this.descripcion = descripcion;
     }
 
-
+//Esto serviria para poner una publicacion de tipo informacion :D
 
 }

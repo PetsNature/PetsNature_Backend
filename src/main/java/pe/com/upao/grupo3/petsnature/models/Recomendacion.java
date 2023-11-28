@@ -18,3 +18,4 @@ public class Recomendacion extends Publicacion{
         super(usuario, tema, tipoMascota, img, contenido, enlace);
     }
 }
+//Esto serviria para poner una publicacion de tipo recomendacion :D
